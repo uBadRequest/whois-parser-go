@@ -114,6 +114,10 @@ func Parse(text string) (whoisInfo WhoisInfo, err error) {
 		if value == "" {
 			continue
 		}
+		
+		if name == nil {
+			continue
+		}
 
 		keyName := FindKeyName(name)
 		switch keyName {
