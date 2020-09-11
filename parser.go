@@ -207,7 +207,11 @@ func parseContact(contact *Contact, name, value string) {
 	case "registrant_id":
 		contact.ID = value
 	case "registrant_name":
-		contact.Name = value
+		if contact.Name != "" {
+			contact.Name = value
+		} else {
+			contact.Name = "null"
+		}
 	case "registrant_organization":
 		contact.Organization = value
 	case "registrant_street":
@@ -233,7 +237,11 @@ func parseContact(contact *Contact, name, value string) {
 	case "registrant_fax_ext":
 		contact.FaxExt = value
 	case "registrant_email":
-		contact.Email = strings.ToLower(value)
+		if contact.Email != "" {
+			contact.Email = strings.ToLower(value)
+		} else {
+			contact.Email = "null"
+		}
 	}
 }
 
