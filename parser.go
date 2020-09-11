@@ -115,7 +115,7 @@ func Parse(text string) (whoisInfo WhoisInfo, err error) {
 			continue
 		}
 		
-		if name == nil {
+		if name == "" {
 			continue
 		}
 
