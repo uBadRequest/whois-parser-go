@@ -239,9 +239,9 @@ func parseContact(contact *Contact, name, value string) {
 		case "registrant_fax_ext":
 			contact.FaxExt = value
 		case "registrant_email":
-		if contact.Email {
-			contact.Email = strings.ToLower(value)
-		}
+			if value != "" {
+				contact.Email = strings.ToLower(value)
+			}
 	}
 }
 
