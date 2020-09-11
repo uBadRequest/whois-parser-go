@@ -183,7 +183,9 @@ func Parse(text string) (whoisInfo WhoisInfo, err error) {
 	}
 
 	if *registrant != (Contact{}) {
-		whoisInfo.Registrant = registrant
+		if registrant != nil{
+			whoisInfo.Registrant = registrant
+		}
 	}
 
 	if *administrative != (Contact{}) {
@@ -204,44 +206,36 @@ func Parse(text string) (whoisInfo WhoisInfo, err error) {
 // parseContact do parse contact info
 func parseContact(contact *Contact, name, value string) {
 	switch FindKeyName(name) {
-	case "registrant_id":
-		contact.ID = value
-	case "registrant_name":
-		if contact.Name != "" {
+		case "registrant_id":
+			contact.ID = value
+		case "registrant_name":
 			contact.Name = value
-		} else {
-			contact.Name = "null"
-		}
-	case "registrant_organization":
-		contact.Organization = value
-	case "registrant_street":
-		if contact.Street == "" {
-			contact.Street = value
-		} else {
-			contact.Street += ", " + value
-		}
-	case "registrant_city":
-		contact.City = value
-	case "registrant_state_province":
-		contact.Province = value
-	case "registrant_postal_code":
-		contact.PostalCode = value
-	case "registrant_country":
-		contact.Country = value
-	case "registrant_phone":
-		contact.Phone = value
-	case "registrant_phone_ext":
-		contact.PhoneExt = value
-	case "registrant_fax":
-		contact.Fax = value
-	case "registrant_fax_ext":
-		contact.FaxExt = value
-	case "registrant_email":
-		if contact.Email != "" {
+		case "registrant_organization":
+			contact.Organization = value
+		case "registrant_street":
+			if contact.Street == "" {
+				contact.Street = value
+			} else {
+				contact.Street += ", " + value
+			}
+		case "registrant_city":
+			contact.City = value
+		case "registrant_state_province":
+			contact.Province = value
+		case "registrant_postal_code":
+			contact.PostalCode = value
+		case "registrant_country":
+			contact.Country = value
+		case "registrant_phone":
+			contact.Phone = value
+		case "registrant_phone_ext":
+			contact.PhoneExt = value
+		case "registrant_fax":
+			contact.Fax = value
+		case "registrant_fax_ext":
+			contact.FaxExt = value
+		case "registrant_email":
 			contact.Email = strings.ToLower(value)
-		} else {
-			contact.Email = "null"
-		}
 	}
 }
 
