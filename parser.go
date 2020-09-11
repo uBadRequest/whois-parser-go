@@ -211,8 +211,8 @@ func parseContact(contact *Contact, name, value string) {
 		case "registrant_id":
 			contact.ID = value
 		case "registrant_name":
-			if !(contact.Name).isEmpty() {
-				contact.Name = value
+			if *contact.Name != (Contact{}) {
+					contact.Name = value
 			}
 		case "registrant_organization":
 			contact.Organization = value
