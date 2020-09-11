@@ -187,9 +187,7 @@ func Parse(text string) (whoisInfo WhoisInfo, err error) {
 	}
 
 	if *registrant != (Contact{}) {
-		if registrant != nil{
-			whoisInfo.Registrant = registrant
-		}
+		whoisInfo.Registrant = registrant
 	}
 
 	if *administrative != (Contact{}) {
@@ -213,9 +211,9 @@ func parseContact(contact *Contact, name, value string) {
 		case "registrant_id":
 			contact.ID = value
 		case "registrant_name":
-		if contact.Name {
-			contact.Name = value
-		}
+			if !(contact.Name).isEmpty() {
+				contact.Name = value
+			}
 		case "registrant_organization":
 			contact.Organization = value
 		case "registrant_street":
