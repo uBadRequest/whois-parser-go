@@ -121,57 +121,57 @@ func Parse(text string) (whoisInfo WhoisInfo, err error) {
 
 		keyName := FindKeyName(name)
 		switch keyName {
-		case "domain_id":
-			domain.ID = value
-		case "domain_name":
-			if domain.Domain == "" {
-				domain.Domain = strings.ToLower(value)
-				domain.Punycode, _ = idna.ToASCII(domain.Domain)
-			}
-		case "domain_status":
-			domain.Status = append(domain.Status, strings.Split(value, ",")...)
-		case "domain_dnssec":
-			if !domain.DnsSec {
-				domain.DnsSec = IsDnsSecEnabled(value)
-			}
-		case "whois_server":
-			if domain.WhoisServer == "" {
-				domain.WhoisServer = value
-			}
-		case "name_servers":
-			domain.NameServers = append(domain.NameServers, strings.Split(value, ",")...)
-		case "created_date":
-			if domain.CreatedDate == "" {
-				domain.CreatedDate = value
-			}
-		case "updated_date":
-			if domain.UpdatedDate == "" {
-				domain.UpdatedDate = value
-			}
-		case "expired_date":
-			if domain.ExpirationDate == "" {
-				domain.ExpirationDate = value
-			}
-		case "referral_url":
-			registrar.ReferralURL = value
-		default:
-			name = ClearName(name)
-			if !strings.Contains(name, " ") {
-				name += " name"
-			}
-			ns := strings.SplitN(name, " ", 2)
-			name = strings.TrimSpace("registrant " + ns[1])
-			if ns[0] == "registrar" || ns[0] == "registration" {
-				parseContact(registrar, name, value)
-			} else if ns[0] == "registrant" || ns[0] == "holder" {
-				parseContact(registrant, name, value)
-			} else if ns[0] == "admin" || ns[0] == "administrative" {
-				parseContact(administrative, name, value)
-			} else if ns[0] == "tech" || ns[0] == "technical" {
-				parseContact(technical, name, value)
-			} else if ns[0] == "bill" || ns[0] == "billing" {
-				parseContact(billing, name, value)
-			}
+			case "domain_id":
+				domain.ID = value
+			case "domain_name":
+				if domain.Domain == "" {
+					domain.Domain = strings.ToLower(value)
+					domain.Punycode, _ = idna.ToASCII(domain.Domain)
+				}
+			case "domain_status":
+				domain.Status = append(domain.Status, strings.Split(value, ",")...)
+			case "domain_dnssec":
+				if !domain.DnsSec {
+					domain.DnsSec = IsDnsSecEnabled(value)
+				}
+			case "whois_server":
+				if domain.WhoisServer == "" {
+					domain.WhoisServer = value
+				}
+			case "name_servers":
+				domain.NameServers = append(domain.NameServers, strings.Split(value, ",")...)
+			case "created_date":
+				if domain.CreatedDate == "" {
+					domain.CreatedDate = value
+				}
+			case "updated_date":
+				if domain.UpdatedDate == "" {
+					domain.UpdatedDate = value
+				}
+			case "expired_date":
+				if domain.ExpirationDate == "" {
+					domain.ExpirationDate = value
+				}
+			case "referral_url":
+				registrar.ReferralURL = value
+			default:
+				name = ClearName(name)
+				if !strings.Contains(name, " ") {
+					name += " name"
+				}
+				ns := strings.SplitN(name, " ", 2)
+				name = strings.TrimSpace("registrant " + ns[1])
+				if ns[0] == "registrar" || ns[0] == "registration" {
+					parseContact(registrar, name, value)
+				} else if ns[0] == "registrant" || ns[0] == "holder" {
+					parseContact(registrant, name, value)
+				} else if ns[0] == "admin" || ns[0] == "administrative" {
+					parseContact(administrative, name, value)
+				} else if ns[0] == "tech" || ns[0] == "technical" {
+					parseContact(technical, name, value)
+				} else if ns[0] == "bill" || ns[0] == "billing" {
+					parseContact(billing, name, value)
+				}
 		}
 	}
 
@@ -239,7 +239,7 @@ func parseContact(contact *Contact, name, value string) {
 		case "registrant_fax_ext":
 			contact.FaxExt = value
 		case "registrant_email":
-			if value != "" {
+			if value != nil {
 				contact.Email = strings.ToLower(value)
 			}
 	}
